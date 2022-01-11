@@ -1,345 +1,324 @@
 #include <iostream>
 
-using namespace std;
+bool bglob{true};
+bool * pbglob{&bglob};
+bool & rbglob{bglob};
+static bool sbglob{false};
+const bool cbglob{false};
+const bool *pcbglob{&cbglob};
+const bool &rcbglob{cbglob};
+const static bool csbglob{true};
 
-int iglob;
-static int isglob;
-const int icglob{123};
-const static int icsglob{234};
-auto aglob{345};
+char cglob{50};
+char * pcglob{&cglob};
+char & rcglob{cglob};
+static char scglob{'t'};
+const char ccglob{true};
+const char *pccglob{&ccglob};
+const char &rccglob{ccglob};
+const static char cscglob{'y'};
 
-double dglob;
-static double dsglob;
-const double dcglob{12.3};
-const static double dcsglob{23.4};
-auto adglob{34.5};
+int iglob{123};
+int * piglob{&iglob};
+int & riglob{iglob};
+static int siglob{234};
+const int ciglob{345};
+const int *pciglob{&ciglob};
+const int &rciglob{iglob};
+const static int csiglob{567};
 
-// The function doesn't work because global variables sent with copy of value
-// template <typename T> inline void print_vars(string name, T  var, T * pvar, T & rvar)
-// {
-//     cout << "Value of " << name << ": " << var << endl;
-//     cout << "Address of " << name << ": " << &var << endl;
-//     cout << "Value of p" << name << ": " << pvar << endl;
-//     cout << "Value of p" << name << "+1: " << pvar+1 << endl;
-//     cout << "Address of p" << name << ": " << &pvar << endl;
-//     cout << "Value of variable with address p" << name << ": " << *pvar << endl;
-//     cout << "Size of " << name << ": " << sizeof(var) << endl;
-//     cout << "Size of p" << name << ": " << sizeof(pvar) << endl;
-//     cout << "Size of r" << name << ": " << sizeof(rvar) << endl;
-//     cout << "Address of r" << name << ": " << &rvar << endl;
-//     cout << "Value of r" << name << ": " << rvar << endl;
-// }
+float fglob{1.23};
+float* pfglob{&fglob};
+float & rfglob{fglob};
+static float sfglob{12.3};
+const float cfglob{2.34};
+const float * pcfglob{&cfglob};
+const float & rcfglob{fglob};
+const static float csfglob{23.4};
 
+double dglob{3.45};
+double* pdglob{&dglob};
+double & rdglob{dglob};
+static double sdglob{34.5};
+const double cdglob{4.56};
+const double * pcdglob{&cdglob};
+const double & rcdglob{dglob};
+const static double csdglob{45.6};
+
+long lglob{123456789};
+long* plglob{&lglob};
+long & rlglob{lglob};
+static long slglob{987654321};
+const long clglob{456789123};
+const long * pclglob{&clglob};
+const long & rclglob{lglob};
+const static long cslglob{123789465};
+
+template<typename T>
+void print_variable_info(const T& var, const std::string& name = "") {
+  std::string prefix = (name.empty()) ? "" : ("[" + name + "] ");
+
+  std::cout << "\n";
+  std::cout << prefix << "Value: " << var << "\n";
+  std::cout << prefix << "Address: " << &var << "\n"; // Q: why it won't print address of var with type "char"? what is needed to do?
+  std::cout << prefix << "Type: " << typeid(var).name() << "\n";
+  std::cout << prefix << "Sizeof: " << sizeof(var) << std::endl;
+}
 
 int main()
 {
 
-    int iloc;
-    static int isloc;
-    const int icloc{654};
-    const static int icsloc{876};
+  bool bloc{true};
+  bool* pbloc{&bloc};
+  bool & rbloc{bloc};
+  static bool sbloc{false};
+  const bool cbloc{true};
+  const bool *pcbloc{&cbloc};
+  const bool &rcbloc{cbloc};
+  const static bool csbloc{true};
 
-    int * piglob = &iglob;
-    int * pisglob = &isglob;
-    const int * picglob = &icglob;
-    const int * picsglob = &icsglob;
-    auto *paglob=&aglob;
-    
+  char cloc{50};
+  char* pcloc{&cloc};
+  char & rcloc{cloc};
+  static char scloc{'t'};
+  const char ccloc{true};
+  const char *pccloc{&ccloc};
+  const char &rccloc{ccloc};
+  const static char cscloc{'y'};
 
-    int &riglob = iglob;
-    int &risglob = isglob;
-    const int &ricglob = icglob;
-    const int &ricsglob = icsglob;    
-    auto &raglob=aglob;
+  int iloc{123};
+  int* piloc{&iloc};
+  int & riloc{iloc};
+  static int siloc{234};
+  const int ciloc{345};
+  const int *pciloc{&ciloc};
+  const int &rciloc{iloc};
+  const static int csiloc{567};
 
-    int * piloc = &iloc;
-    int * pisloc = &isloc;
-    const int * picloc = &icloc;
-    const int * picsloc = &icsloc;    
+  float floc{1.23};
+  float* pfloc{&floc};
+  float & rfloc{floc};
+  static float sfloc{12.3};
+  const float cfloc{2.34};
+  const float * pcfloc{&cfloc};
+  const float & rcfloc{floc};
+  const static float csfloc{23.4};
 
-    int &riloc = iloc;
-    int &risloc = isloc;
-    const int &ricloc = icloc;
-    const int &ricsloc = icsloc;    
+  double dloc{3.45};
+  double* pdloc{&dloc};
+  double & rdloc{dloc};
+  static double sdloc{34.5};
+  const double cdloc{4.56};
+  const double * pcdloc{&cdloc};
+  const double & rcdloc{dloc};
+  const static double csdloc{45.6};
 
-    double * pdglob = &dglob;
-    double * pdsglob = &dsglob;
-    const double * pdcglob = &dcglob;
-    const double * pdcsglob = &dcsglob;
+  long lloc{123456789};
+  long* plloc{&lloc};
+  long & rlloc{lloc};
+  static long slloc{987654321};
+  const long clloc{456789123};
+  const long * pclloc{&clloc};
+  const long & rclloc{lloc};
+  const static long cslloc{123789465};
+      
+  print_variable_info<bool>(bglob,"bglob, bool global var");
+  print_variable_info<bool*>(pbglob,"pbglob, bool global pointer to bglob");
+  print_variable_info<bool>(rbglob,"rbglob, bool global ref to bglob");
 
-    double &rdglob = dglob;
-    double &rdsglob = dsglob;
-    const double &rdcglob = dcglob;
-    const double &rdcsglob = dcsglob;    
+  print_variable_info< bool>(cbglob,"cbglob, bool const global var");
+  print_variable_info<const bool*>(pcbglob,"pcbglob, bool const global pointer to bglob");
+  print_variable_info< bool>(rcbglob,"rcbglob, bool const global ref to bglob");
 
-    cout  << "Hello automotive basecamp!" << endl ;
-    cout  << "1_constants_variables_and_type" << endl ;
-    cout << "a - auto" << endl;    
-    cout << "p - pointer" << endl;
-    cout << "r - reference" << endl;
-    cout << "d - double" << endl;
-    cout << "i - integer" << endl;
-    cout << "c - const" << endl;
-    cout << "s - static" << endl;
-    cout << "glob - global" << endl;
-    cout << "loc - local" << endl << endl;
+  print_variable_info<bool>(sbglob,"sbglob, bool static global var");
+  print_variable_info<bool>(csbglob,"csbglob, bool const static global var");
 
-    cout << "---------------------------------------------------------------------" << endl;
+  std::cout << "---------------------------------------------------------------------" << "\n" ;
 
-    cout << "Value of iglob: " << iglob << endl;
-    cout << "Address of iglob: " << &iglob << endl;
-    cout << "Value of piglob: " << piglob << endl;
-    cout << "Value of piglob+1: " << piglob+1 << endl;
-    cout << "Address of piglob: " << &piglob << endl;
-    cout << "Value of variable with address piglob: " << *piglob << endl;
-    cout << "Size of iglob: " << sizeof(iglob) << endl;
-    cout << "Size of piglob: " << sizeof(piglob) << endl;
-    cout << "Size of riglob: " << sizeof(riglob) << endl;
-    cout << "Address of riglob: " << &riglob << endl;
-    cout << "Value of riglob: " << riglob << endl;
-    riglob=545;
-    cout << "The reference is changed to 545" << endl;
-    cout << "Value of iglob: " << iglob << endl;
-    cout << "Value of riglob: " << riglob << endl;
+  print_variable_info<char>(cglob,"cglob, char global var");
+  print_variable_info<char*>(pcglob,"pcglob, char global pointer to cglob");
+  print_variable_info<char>(rcglob,"rcglob, char global ref to cglob");
 
-    cout << endl;
+  std::cout << "\n[cglob, char global var] Address: " <<static_cast<const void *>(&cglob) << "\n";
+  std::cout << "[pcglob, char global pointer to cglob] Value: " <<static_cast<const void *>(pcglob) << "\n";
 
-    cout << "Value of isglob: " << isglob << endl;
-    cout << "Address of isglob: " << &isglob << endl;
-    cout << "Value of pisglob: " << pisglob << endl;
-    cout << "Value of pisglob+1: " << pisglob+1 << endl;
-    cout << "Address of pisglob: " << &pisglob << endl;
-    cout << "Value of variable with address pisglob: " << *pisglob << endl;
-    cout << "Size of isglob: " << sizeof(isglob) << endl;
-    cout << "Size of pisglob: " << sizeof(pisglob) << endl;
-    cout << "Size of risglob: " << sizeof(risglob) << endl;
-    cout << "Address of risglob: " << &risglob << endl;
-    cout << "Value of risglob: " << risglob << endl;
-    risglob=656;    
-    cout << "The reference is changed to 656" << endl;
-    cout << "Value of isglob: " << isglob << endl;
-    cout << "Value of risglob: " << risglob << endl;
+  print_variable_info<char>(ccglob,"ccglob, char const global var");
+  print_variable_info<const char*>(pccglob,"pccglob, char const global pointer to cglob");
+  print_variable_info<char>(rccglob,"rccglob, char const global ref to cglob");
 
-    cout << endl;
+  std::cout << "\n[ccglob, char const global var] Address: " << static_cast<const void *>(&ccglob) << "\n";
+  std::cout << "[pccglob, char const global pointer to ccglob] Value: " << static_cast<const void *>(pccglob) << "\n";
 
-     cout << "Value of icglob: " << icglob << endl;
-    cout << "Address of icglob: " << &icglob << endl;
-    cout << "Value of picglob: " << picglob << endl;
-    cout << "Value of picglob+1: " << picglob+1 << endl;
-    cout << "Address of picglob: " << &picglob << endl;
-    cout << "Value of variable with address picglob: " << *picglob << endl;
-    cout << "Size of icglob: " << sizeof(icglob) << endl;
-    cout << "Size of picglob: " << sizeof(picglob) << endl;
-    cout << "Size of ricglob: " << sizeof(ricglob) << endl;
-    cout << "Address of ricglob: " << &ricglob << endl;
-    cout << "Value of ricglob: " << ricglob << endl;
-    //ricglob=741;
-    cout << "The reference can't be changed because it is const" << endl;
-    cout << "Value of icglob: " << icglob << endl;
-    cout << "Value of ricglob: " << ricglob << endl;
+  print_variable_info<char>(scglob,"scglob, char static global var");
+  print_variable_info<char>(cscglob,"cscglob, char const static global var");
 
-    cout << endl;
+  std::cout << "---------------------------------------------------------------------" << "\n";
 
-    cout << "Value of icsglob: " << icsglob << endl;
-    cout << "Address of icsglob: " << &icsglob << endl;
-    cout << "Value of picsglob: " << picsglob << endl;
-    cout << "Value of picsglob+1: " << picsglob+1 << endl;
-    cout << "Address of picsglob: " << &picsglob << endl;
-    cout << "Value of variable with address picsglob: " << *picsglob << endl;
-    cout << "Size of icsglob: " << sizeof(icsglob) << endl;
-    cout << "Size of picsglob: " << sizeof(picsglob) << endl;
-    cout << "Size of ricsglob: " << sizeof(ricsglob) << endl;
-    cout << "Address of ricsglob: " << &ricsglob << endl;
-    cout << "Value of ricsglob: " << ricsglob << endl;
-    //ricglob=852;
-    cout << "The reference can't be changed because it is const" << endl;
-    cout << "Value of icsglob: " << icsglob << endl;
-    cout << "Value of ricsglob: " << ricsglob << endl;
+  print_variable_info<int>(iglob,"iglob, int global var");
+  print_variable_info<int*>(piglob,"piglob, int global pointer to iglob");
+  print_variable_info<int>(riglob,"riglob, int global ref to iglob");
 
-    cout << endl;
+  print_variable_info<int>(ciglob,"ciglob, int const global var");
+  print_variable_info<const int*>(pciglob,"pciglob, int const global pointer to iglob");
+  print_variable_info<int>(rciglob,"rciglob, int const global ref to iglob");
 
-    cout << "Value of aglob: " << aglob << endl;
-    cout << "Address of aglob: " << &aglob << endl;
-    cout << "Value of paglob: " << paglob << endl;
-    cout << "Value of paglob+1: " << paglob+1 << endl;
-    cout << "Address of paglob: " << &paglob << endl;
-    cout << "Value of variable with address paglob: " << *paglob << endl;
-    cout << "Size of aglob: " << sizeof(aglob) << endl;
-    cout << "Size of paglob: " << sizeof(paglob) << endl;
-    cout << "Size of raglob: " << sizeof(raglob) << endl;
-    cout << "Address of raglob: " << &raglob << endl;
-    cout << "Value of raglob: " << raglob << endl;
-    cout << "Type of auto variable is - " << typeid(aglob).name() << endl;
-    cout << "Type of auto pointer is - " << typeid(paglob).name() << endl;
-    cout << "Type of auto reference is - " << typeid(raglob).name() << endl;
-    raglob=963;    
-    cout << "The reference is changed to 963" << endl;
-    cout << "Value of isglob: " << aglob << endl;
-    cout << "Value of risglob: " << raglob << endl;
+  print_variable_info<int>(siglob,"siglob, int static global var");
+  print_variable_info<int>(csiglob,"csiglob, int const static global var");
 
-     cout << endl;
+  std::cout << "---------------------------------------------------------------------" << "\n";
 
-    cout << "---------------------------------------------------------------------" << endl;
-    cout << "Value of iloc: " << iloc << endl;
-    cout << "Address of iloc: " << &iloc << endl;
-    cout << "Value of piloc: " << piloc << endl;
-    cout << "Value of piloc+1: " << piloc+1 << endl;
-    cout << "Address of piloc: " << &piloc << endl;
-    cout << "Value of variable with address piloc: " << *piloc << endl;
-    cout << "Size of iloc: " << sizeof(iloc) << endl;
-    cout << "Size of piloc: " << sizeof(piloc) << endl;
-    cout << "Size of riloc: " << sizeof(riloc) << endl;
-    cout << "Address of riloc: " << &riloc << endl;
-    cout << "Value of riloc: " << riloc << endl;
+  print_variable_info<float>(fglob,"fglob, float global var");
+  print_variable_info<float*>(pfglob,"pfglob, float global pointer to fglob");
+  print_variable_info<float>(rfglob,"rfglob, float global ref to fglob");
 
-    cout << endl;
+  print_variable_info<float>(cfglob,"cfglob, float const global var");
+  print_variable_info<const float*>(pcfglob,"pcfglob, float const global pointer to fglob");
+  print_variable_info<float>(rcfglob,"rcfglob, float const global ref to fglob");
 
-    cout << "Value of isloc: " << isloc << endl;
-    cout << "Address of isloc: " << &isloc << endl;
-    cout << "Value of pisloc: " << pisloc << endl;
-    cout << "Value of pisloc+1: " << pisloc+1 << endl;
-    cout << "Address of pisloc: " << &pisloc << endl;
-    cout << "Value of variable with address pisloc: " << *pisloc << endl;
-    cout << "Size of isloc: " << sizeof(isloc) << endl;
-    cout << "Size of pisloc: " << sizeof(pisloc) << endl;
-    cout << "Size of risloc: " << sizeof(risloc) << endl;
-    cout << "Address of risloc: " << &risloc << endl;
-    cout << "Value of risloc: " << risloc << endl;
+  print_variable_info<float>(sfglob,"sfglob, float static global var");
+  print_variable_info<float>(csfglob,"csfglob, float const static global var");
 
-    cout << endl;
+  std::cout << "---------------------------------------------------------------------" << "\n";
 
-     cout << "Value of icloc: " << icloc << endl;
-    cout << "Address of icloc: " << &icloc << endl;
-    cout << "Value of picloc: " << picloc << endl;
-    cout << "Value of picloc+1: " << picloc+1 << endl;
-    cout << "Address of picloc: " << &picloc << endl;
-    cout << "Value of variable with address picloc: " << *picloc << endl;
-    cout << "Size of icloc: " << sizeof(icloc) << endl;
-    cout << "Size of picloc: " << sizeof(picloc) << endl;
-    cout << "Size of ricloc: " << sizeof(ricloc) << endl;
-    cout << "Address of ricloc: " << &ricloc << endl;
-    cout << "Value of ricloc: " << ricloc << endl;
+  print_variable_info<double>(dglob,"dglob, double global var");
+  print_variable_info<double*>(pdglob,"pdglob, double global pointer to dglob");
+  print_variable_info<double>(rdglob,"rdglob, double global ref to dglob");
 
-    cout << endl;
+  print_variable_info<double>(cdglob,"cdglob, double const global var");
+  print_variable_info<const double*>(pcdglob,"pcdglob, double const global pointer to dglob");
+  print_variable_info<double>(rcdglob,"rcdglob, double const global ref to dglob");
 
-    cout << "Value of icsloc: " << icsloc << endl;
-    cout << "Address of icsloc: " << &icsloc << endl;
-    cout << "Value of picsloc: " << picsloc << endl;
-    cout << "Value of picsloc+1: " << picsloc+1 << endl;
-    cout << "Address of picsloc: " << &picsloc << endl;
-    cout << "Value of variable with address picsloc: " << *picsloc << endl;
-    cout << "Size of icsloc: " << sizeof(icsloc) << endl;
-    cout << "Size of picsloc: " << sizeof(picsloc) << endl;
-    cout << "Size of ricsloc: " << sizeof(ricsloc) << endl;
-    cout << "Address of ricsloc: " << &ricsloc << endl;
-    cout << "Value of ricsloc: " << ricsloc << endl;
+  print_variable_info<double>(sdglob,"sdglob, double static global var");
+  print_variable_info<double>(csdglob,"csdglob, double const static global var");
 
-    cout << endl;
+  std::cout << "---------------------------------------------------------------------" << "\n";
 
-    cout << "---------------------------------------------------------------------" << endl;
+  print_variable_info<long>(lglob,"lglob, long global var");
+  print_variable_info<long*>(plglob,"plglob, long global pointer to lglob");
+  print_variable_info<long>(rlglob,"rlglob, long global ref to lglob");
 
-    cout << "Value of dglob: " << dglob << endl;
-    cout << "Address of dglob: " << &dglob << endl;
-    cout << "Value of pdglob: " << pdglob << endl;
-    cout << "Value of pdglob+1: " << pdglob+1 << endl;
-    cout << "Address of pdglob: " << &pdglob << endl;
-    cout << "Value of variable with address pdglob: " << *pdglob << endl;
-    cout << "Size of dglob: " << sizeof(dglob) << endl;
-    cout << "Size of pdglob: " << sizeof(pdglob) << endl;
-    cout << "Size of rdglob: " << sizeof(rdglob) << endl;
-    cout << "Address of rdglob: " << &rdglob << endl;
-    cout << "Value of rdglob: " << rdglob << endl;
-    rdglob=545;
-    cout << "The reference is changed to 545" << endl;
-    cout << "Value of dglob: " << dglob << endl;
-    cout << "Value of rdglob: " << rdglob << endl;
+  print_variable_info<long>(clglob,"clglob, long const global var");
+  print_variable_info<const long*>(pclglob,"pclglob, long const global pointer to lglob");
+  print_variable_info<long>(rclglob,"rclglob, long const global ref to lglob");
 
-    cout << endl;
+  print_variable_info<long>(slglob,"slglob, long static global var");
+  print_variable_info<long>(cslglob,"cslglob, long const static global var");
 
-    cout << "Value of dsglob: " << dsglob << endl;
-    cout << "Address of dsglob: " << &dsglob << endl;
-    cout << "Value of pdsglob: " << pdsglob << endl;
-    cout << "Value of pdsglob+1: " << pdsglob+1 << endl;
-    cout << "Address of pdsglob: " << &pdsglob << endl;
-    cout << "Value of variable with address pdsglob: " << *pdsglob << endl;
-    cout << "Size of dsglob: " << sizeof(dsglob) << endl;
-    cout << "Size of pdsglob: " << sizeof(pdsglob) << endl;
-    cout << "Size of rdsglob: " << sizeof(rdsglob) << endl;
-    cout << "Address of rdsglob: " << &rdsglob << endl;
-    cout << "Value of rdsglob: " << rdsglob << endl;
+  std::cout << "---------------------------------------------------------------------" << "\n";
 
-    cout << endl;
+print_variable_info<bool>(bloc,"bloc, bool local var");
+  print_variable_info<bool*>(pbloc,"pbloc, bool local pointer to bloc");
+  print_variable_info<bool>(rbloc,"rbloc, bool local ref to bloc");
 
-     cout << "Value of dcglob: " << dcglob << endl;
-    cout << "Address of dcglob: " << &dcglob << endl;
-    cout << "Value of pdcglob: " << pdcglob << endl;
-    cout << "Value of pdcglob+1: " << pdcglob+1 << endl;
-    cout << "Address of pdcglob: " << &pdcglob << endl;
-    cout << "Value of variable with address pdcglob: " << *pdcglob << endl;
-    cout << "Size of dcglob: " << sizeof(dcglob) << endl;
-    cout << "Size of pdcglob: " << sizeof(pdcglob) << endl;
-    cout << "Size of rdcglob: " << sizeof(rdcglob) << endl;
-    cout << "Address of rdcglob: " << &rdcglob << endl;
-    cout << "Value of rdcglob: " << rdcglob << endl;
+  print_variable_info<bool>(cbloc,"cbloc, bool const local var");
+  print_variable_info<const bool*>(pcbloc,"pcbloc, bool const local pointer to bloc");
+  print_variable_info<bool>(rcbloc,"rcbloc, bool const local ref to bloc");
 
-    cout << endl;
+  print_variable_info<bool>(sbloc,"sbloc, bool static local var");
+  print_variable_info<bool>(csbloc,"csbloc, bool const static local var");
 
-    cout << "Value of dcsglob: " << dcsglob << endl;
-    cout << "Address of dcsglob: " << &dcsglob << endl;
-    cout << "Value of pdcsglob: " << pdcsglob << endl;
-    cout << "Value of pdcsglob+1: " << pdcsglob+1 << endl;
-    cout << "Address of pdcsglob: " << &pdcsglob << endl;
-    cout << "Value of variable with address pdcsglob: " << *pdcsglob << endl;
-    cout << "Size of dcsglob: " << sizeof(dcsglob) << endl;
-    cout << "Size of pdcsglob: " << sizeof(pdcsglob) << endl;
-    cout << "Size of rdcsglob: " << sizeof(rdcsglob) << endl;
-    cout << "Address of rdcsglob: " << &rdcsglob << endl;
-    cout << "Value of rdcsglob: " << rdcsglob << endl;
+  std::cout << "---------------------------------------------------------------------" << "\n";
 
-    cout << endl;
+  print_variable_info<char>(cloc,"cloc, char local var");
+  print_variable_info<char*>(pcloc,"pcloc, char local pointer to cloc");
+  print_variable_info<char>(rcloc,"rcloc, char local ref to cloc");
 
-    cout << "---------------------------------------------------------------------" << endl;
+  std::cout << "\n[cloc, char local var] Address: " <<static_cast<const void *>(&cloc) << "\n";
+  std::cout << "[pcloc, char local pointer to cloc] Value: " <<static_cast<const void *>(pcloc) << "\n";
 
-    // print_vars<int>("iglob", iglob, piglob, riglob);
+  print_variable_info<char>(ccloc,"ccloc, char const local var");
+  print_variable_info<const char*>(pccloc,"pccloc, char const local pointer to cloc");
+  print_variable_info<char>(rccloc,"rccloc, char const local ref to cloc");
 
-//     - INT <- FLOAT
-// - DOUBLE <- INT
-// - INT <- CHAR
-// - CHAR <- INT
-// - UNSIGNED CHAR <- INT
+  std::cout << "\n[ccloc, char const local var] Address: " <<static_cast<const void *>(&ccloc) << "\n";
+  std::cout << "[pccloc, char const local pointer to cloc] Value: " <<static_cast<const void *>(pccloc) << "\n";
 
-    float floc{12.34};
-    double dloc{12.3456};
-    char cloc{'l'};
+  print_variable_info<char>(scloc,"scloc, char static local var");
+  print_variable_info<char>(cscloc,"cscloc, char const static local var");
+
+  std::cout << "---------------------------------------------------------------------" << "\n";
+
+  print_variable_info<int>(iloc,"iloc, int local var");
+  print_variable_info<int*>(piloc,"piloc, int local pointer to iloc");
+  print_variable_info<int>(riloc,"riloc, int local ref to iloc");
+
+  print_variable_info<int>(ciloc,"ciloc, int const local var");
+  print_variable_info<const int*>(pciloc,"pciloc, int const local pointer to iloc");
+  print_variable_info<int>(rciloc,"rciloc, int const local ref to iloc");
+
+  print_variable_info<int>(siloc,"siloc, int static local var");
+  print_variable_info<int>(csiloc,"csiloc, int const static local var");
+
+  std::cout << "---------------------------------------------------------------------" << "\n";
+
+  print_variable_info<float>(floc,"floc, float local var");
+  print_variable_info<float*>(pfloc,"pfloc, float local pointer to floc");
+  print_variable_info<float>(rfloc,"rfloc, float local ref to floc");
+
+  print_variable_info<float>(cfloc,"cfloc, float const local var");
+  print_variable_info<const float*>(pcfloc,"pcfloc, float const local pointer to floc");
+  print_variable_info<float>(rcfloc,"rcfloc, float const local ref to floc");
+
+  print_variable_info<float>(sfloc,"sfloc, float static local var");
+  print_variable_info<float>(csfloc,"csfloc, float const static local var");
+
+  std::cout << "---------------------------------------------------------------------" << "\n";
+
+  print_variable_info<double>(dloc,"dloc, double local var");
+  print_variable_info<double*>(pdloc,"pdloc, double local pointer to dloc");
+  print_variable_info<double>(rdloc,"rdloc, double local ref to dloc");
+
+  print_variable_info<double>(cdloc,"cdloc, double const local var");
+  print_variable_info<const double*>(pcdloc,"pcdloc, double const local pointer to dloc");
+  print_variable_info<double>(rcdloc,"rcdloc, double const local ref to dloc");
+
+  print_variable_info<double>(sdloc,"sdloc, double static local var");
+  print_variable_info<double>(csdloc,"csdloc, double const static local var");
+
+  std::cout << "---------------------------------------------------------------------" << "\n";
+
+  print_variable_info<long>(lloc,"lloc, long local var");
+  print_variable_info<long*>(plloc,"plloc, long local pointer to lloc");
+  print_variable_info<long>(rlloc,"rlloc, long local ref to lloc");
+
+  print_variable_info<long>(clloc,"clloc, long const local var");
+  print_variable_info<const long*>(pclloc,"pclloc, long const local pointer to lloc");
+  print_variable_info<long>(rclloc,"rclloc, long const local ref to lloc");
+
+  print_variable_info<long>(slloc,"slloc, long static local var");
+  print_variable_info<long>(cslloc,"cslloc, long const static local var");
+
+  std::cout << "---------------------------------------------------------------------" << "\n";
+
     unsigned char ucloc{'k'};
 
     iloc=floc;
-    cout << "iloc <- 12.34" << endl << "iloc=" << iloc << endl;
-    cout << "-------" << endl;
+    std::cout << "iloc <- 12.34\n" << "iloc=" << iloc << "\n";
+    std::cout << "-------\n";
     dloc=iloc;
-    cout << "dloc <- 12" << endl << "dloc=" << dloc << endl;
-    cout << "-------" << endl;
+    std::cout << "dloc <- 12\n" << "dloc=" << dloc << "\n";
+    std::cout << "-------\n";
     iloc=cloc;
-    cout << "iloc <- 'k'" << endl << "iloc=" << iloc << endl;
-    cout << "-------" << endl;
+    std::cout << "iloc <- 'k'\n" << "iloc=" << iloc << "\n";
+    std::cout << "-------" << "\n";
     iloc=1000;
     cloc=iloc;
     ucloc=iloc;
-    cout << "cloc <- 1000" << endl << "cloc=" << (int)cloc << endl;
-    cout << "ucloc <- 1000" << endl << "ucloc=" << (int)ucloc << endl;
-    cout << "---------------------------------------------------------------------" << endl << endl;
+    std::cout << "cloc <- 1000\n" << "cloc=" << (int)cloc << "\n";
+    std::cout << "ucloc <- 1000\n" << "ucloc=" << (int)ucloc << "\n";
+    std::cout << "---------------------------------------------------------------------\n\n";;
 
     unsigned char * puchar{&ucloc};
-    cout << "*puchar <- ucloc " << endl << "*puchar=" << int (*puchar) << endl;
+    std::cout << "*puchar <- ucloc \n" << "*puchar=" << int (*puchar) << "\n";
     *puchar=*puchar +1;
-    cout << "increment *puchar " << endl << "*puchar=" << int (*puchar) << endl;
+    std::cout << "increment *puchar \n" << "*puchar=" << int (*puchar) << " \nucloc=" << (int)ucloc << "\n";
 
-    cout << endl << "---------------------------------------------------------------------" << endl;
+  std::cout << "---------------------------------------------------------------------\n";
 
     auto adloc{345.567};
 
-    cout << "Variable adloc= " << adloc << endl;
-    cout << "Type of adloc is " << typeid(adloc).name() << endl;
+    std::cout << "Variable adloc= " << adloc << "\n";
+    std::cout << "Type of adloc is " << typeid(adloc).name() << "\n";
 
     //     To learn the most common mistakes and know how compilation errors look like try the next:
     // - create two, global and local, variables with the same name;
@@ -350,11 +329,11 @@ int main()
     // - pass some value (for example, 0, 1, 2 ... whatever) to the pointer;
     // - pass a value to a variable of a different type (for example, pass "some_string" to int variable).
 
-    cout << endl << "---------------------------------------------------------------------" << endl;
+  std::cout << "---------------------------------------------------------------------" << std::endl;
 
-    cout << "Global iglob befor definition of local variable = " << iglob << endl;
+    std::cout << "Global iglob befor definition of local variable = " << iglob << "\n";
     int iglob{2378};
-    cout << "iglob after definition 'int iglob{2378}' of local variable = " << iglob << endl;
+    std::cout << "iglob after definition 'int iglob{2378}' of local variable = " << iglob << "\n";
     //the compiler doesn't generate any error. Local variable just shadow the global variable
 
     //icglob=18;
@@ -366,30 +345,32 @@ int main()
        // unsigned int * uipointer = &iglob;
     //error: invalid conversion from ‘int*’ to ‘unsigned int*’
 
-    cout << endl << "---------------------------------------------------------------------" << endl;
+    //std::cout << endl << "---------------------------------------------------------------------" << endl;
 
     //int * npointer{nullptr};
     //There is no compilation error
     // try{
-    //    cout << "Value of nullptr pointer = " << *npointer << endl; 
+    //    std::cout << "Value of nullptr pointer = " << *npointer << endl; 
     // }
     // catch (...){
-    //     cout << "Error with nullptr pointer" << endl;
+    //     std::cout << "Error with nullptr pointer" << endl;
     // }
     //ERROR: Segmentation fault
 
-    cout << endl << "---------------------------------------------------------------------" << endl;
+    //std::cout << endl << "---------------------------------------------------------------------" << endl;
 
     //int * somepointer;
 
     //somepointer=56;
-    //cout << "somepointer value = " << somepointer << ", value from pointer = " << *somepointer << endl; 
+    //std::cout << "somepointer value = " << somepointer << ", value from pointer = " << *somepointer << endl; 
     //error: invalid conversion from ‘int’ to ‘int*’ [-fpermissive]   
     
-    cout << endl << "---------------------------------------------------------------------" << endl;
+    ///std::cout << endl << "---------------------------------------------------------------------" << endl;
     
     //iglob="Some string.";
     //ERROR: error: invalid conversion from ‘const char*’ to ‘int’ [-fpermissive]
 
+
+    std::cout << std::endl;
     return 0;
 }

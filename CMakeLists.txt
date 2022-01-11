@@ -1,3 +1,5 @@
+cmake_minimum_required(VERSION 3.10)
+
 project(basecamp)
 
 add_subdirectory(1_constants_variables_and_types)
